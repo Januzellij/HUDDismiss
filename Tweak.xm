@@ -27,13 +27,6 @@
         return self;
 }
 
-/*- (void)layoutSubviews {
-        %orig;
-        [self setUserInteractionEnabled:YES];
-        	[(SBMediaController *)[%c(SBMediaController) sharedInstance] setVolume:slide.value];
-
-}*/
-
 %new
 
 -(void)hideHUD {
