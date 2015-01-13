@@ -1,7 +1,4 @@
 @interface SBHUDView : UIView
-@end
-
-@interface SBVolumeHUDView : SBHUDView
 -(id)initWithHUDViewLevel:(int)level;
 @end
 
@@ -12,25 +9,19 @@
 -(BOOL)_ignoresHitTest;
 @end
 
-@interface SBHUDController : NSObject
-+(id)sharedHUDController;
--(void)hideHUDView;
-@end
-
-%hook SBVolumeHUDView
+%hook SBHUDView
 
 -(id)initWithHUDViewLevel:(int)level {
         %orig;
         UITapGestureRecognizer *rec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideHUD)];
         [self addGestureRecognizer:rec];
-        [rec release];
         return self;
 }
 
 %new
 
 -(void)hideHUD {
-	[(SBHUDController *)[%c(SBHUDController) sharedHUDController] hideHUDView];
+	self.window.hidden = YES;
 }
 
 %end
